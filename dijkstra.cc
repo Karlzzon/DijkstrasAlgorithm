@@ -6,9 +6,9 @@ void dijkstra(Node* start){
 	s.add(start);
 
 	Node* n;
-	int l;
+	int l = 0;
 	Node* d;
-	int a;
+	int a = 0;;
 	while(!s.isEmpty())
 	{
 		n = s.removeMin();
@@ -20,6 +20,7 @@ void dijkstra(Node* start){
 			if(a < d->getValue())
 			{
 				d->setValue(a);
+				d->setParent(n);
 				s.add(d);
 			}
 		}

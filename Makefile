@@ -20,7 +20,7 @@ LDFLAGS = -g
 # LDFLAGS += -stdlib=libc++
 
 # Targets
-PROGS = test_graph_small test_nodeset test_dijkstra
+PROGS = test_graph_small test_nodeset test_dijkstra my_test_graph test_graph_nofile
 
 all: $(PROGS)
 # Targets rely on implicit rules for compiling and linking
@@ -28,6 +28,8 @@ all: $(PROGS)
 test_graph_small: test_graph_small.o 
 test_nodeset: test_nodeset.o nodeset.o
 test_dijkstra: test_dijkstra.o dijkstra.o nodeset.o
+my_test_graph: my_test_graph.o graph.o dijkstra.o nodeset.o
+test_graph_nofile: test_graph_nofile.o graph.o
 # Phony targets
 .PHONY: all test clean distclean
 
