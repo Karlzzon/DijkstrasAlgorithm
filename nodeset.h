@@ -3,17 +3,17 @@
 #include "node.h"
 #include <vector>
 
-class NodeSet{
+class NodeSet
+{
 
-	public:
-		NodeSet(){}
-		void add(Node* node);
-		bool isEmpty();
-		Node* removeMin();
-	private:
-		std::vector<Node*> n;
+public:
+	NodeSet() {}
+	void add(Node *node);
+	bool isEmpty();
+	Node *removeMin();
+
+private:
+	std::vector<Node *> n;
 };
 
-
-#endif 
-
+#endif

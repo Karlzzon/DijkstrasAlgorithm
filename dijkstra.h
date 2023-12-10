@@ -2,29 +2,32 @@
 #define DIJKSTRA_H
 #include "nodeset.h"
 
-void dijkstra(Node* start);
+void dijkstra(Node *start);
 
-template<typename CostFunction>
-void dijkstraGeneralized(Node* start, const CostFunction& costFunction)
+template <typename CostFunction>
+void dijkstraGeneralized(Node *start, const CostFunction &costFunction)
 {
 	start->setValue(0);
 	NodeSet s;
 	s.add(start);
 
-	Node* n;
+	Node *n;
 	int l = 0;
-	Node* d;
+	Node *d;
 	int a = 0;
 
-	while(!s.isEmpty()){
+	while (!s.isEmpty())
+	{
 		n = s.removeMin();
-		
-		for(Edge e : n->getEdges()){
+
+		for (Edge e : n->getEdges())
+		{
 			l = costFunction(*n, e);
 			d = e.getDest();
 			a = n->getValue() + l;
 
-			if(a < d->getValue()){
+			if (a < d->getValue())
+			{
 				d->setValue(a);
 				d->setParent(n);
 				s.add(d);
@@ -33,4 +36,3 @@ void dijkstraGeneralized(Node* start, const CostFunction& costFunction)
 	}
 }
 #endif // !DIJKSTRA_H
-
