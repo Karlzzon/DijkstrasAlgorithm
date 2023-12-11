@@ -64,12 +64,13 @@ void test_dijkstraPrint(Graph &g)
 		path.pop_back();
 	};
 	cout << "vägen från Lund till Veberod : " << pathstr << " " << cost << endl;
+	assert(cost == 23);
 }
 
 // Kostnadsfunktion för att mäta vägavstånd
 struct DistanceCost
 {
-	int operator()(const Node &source, const Edge &edge) const
+	int operator()(const Edge &edge) const
 	{
 		return edge.getLength();
 	}
@@ -77,11 +78,32 @@ struct DistanceCost
 // Kostnadsfunktion för att mäta antal passerade orter
 struct PassCountCost
 {
-	int operator()(const Node &source, const Edge &edge) const
+	int operator()(const Edge &edge) const
 	{
-		return 1;
+		return edge.getLength()/edge.getLength();
 	}
 };
+void test_dijkstraGeneralized(Graph &g)
+{
+	Node *target = g.find("Veberod");
+	vector<Node *> path;
+
+	while (target != nullptr)
+	{
+		path.push_back(target);
+		target = target->getParent();
+	}
+	int cost = path.front()->getValue();
+	string pathstr;
+	while (!path.empty())
+	{
+		pathstr += path.back()->getName();
+		pathstr += " ";
+		path.pop_back();
+	};
+	cout << "vägen från Lund till Veberod : " << pathstr << " " << cost << endl;
+	assert(cost == 2);
+}
 int main()
 {
 	cout << "================Test Started==================" << endl;
@@ -90,7 +112,7 @@ int main()
 	test_graph(g);
 	dijkstra(g.find("Lund"));
 	test_dijkstraPrint(g);
-
+	cout << "==========Reading from file succeeded==========" << endl;
 	cout << "=========Test for generalized started==========" << endl;
 	DistanceCost d;
 	dijkstraGeneralized(g.find("Lund"), d);
@@ -98,6 +120,6 @@ int main()
 
 	PassCountCost p;
 	dijkstraGeneralized(g.find("Lund"), p);
-	test_dijkstraPrint(g);
+	test_dijkstraGeneralized(g);
 	cout << "=============All Testing Complete==============" << endl;
 }

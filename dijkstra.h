@@ -22,7 +22,7 @@ void dijkstraGeneralized(Node *start, const CostFunction &costFunction)
 
 		for (Edge e : n->getEdges())
 		{
-			l = costFunction(*n, e);
+			l = costFunction(e);
 			d = e.getDest();
 			a = n->getValue() + l;
 

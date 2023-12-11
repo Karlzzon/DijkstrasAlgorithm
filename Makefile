@@ -11,7 +11,7 @@ DEPFLAGS = -MT $@ -MMD -MP -MF $*.d
 # if you use clang++ and wish to use libc++ instead of GNU's libstdc++.
 # -g is for debugging.
 CPPFLAGS = -std=c++11 -I.
-CXXFLAGS = -O0 -Wall -Wextra -pedantic-errors -Wold-style-cast -DINFO
+CXXFLAGS = -O0 -Wall -Wextra -Werror -pedantic-errors -Wold-style-cast 
 CXXFLAGS += -g
 CXXFLAGS += $(DEPFLAGS)
 LDFLAGS = -g
@@ -30,6 +30,15 @@ test_nodeset: test_nodeset.o nodeset.o
 test_dijkstra: test_dijkstra.o dijkstra.o nodeset.o
 my_test_graph: my_test_graph.o graph.o dijkstra.o nodeset.o
 test_graph_nofile: test_graph_nofile.o graph.o
+
+test_components:
+	./test_dijkstra
+	./test_graph_small
+	./test_graph_nofile
+	./test_nodeset
+test_complex:
+	./my_test_graph
+
 # Phony targets
 .PHONY: all test clean distclean
 
