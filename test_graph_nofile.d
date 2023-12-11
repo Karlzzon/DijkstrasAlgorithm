@@ -1,5 +1,5 @@
 test_graph_nofile.o: test_graph_nofile.cc graph.h node.h Edge.h Node.h \
- edge.h dijkstra.h nodeset.h
+ edge.h
 
 graph.h:
 
@@ -10,7 +10,3 @@ Edge.h:
 Node.h:
 
 edge.h:
-
-dijkstra.h:
-
-nodeset.h:
